@@ -4,9 +4,12 @@
 import sys
 
 """
-collatz 列を計算する。
-すでに計算済みの数字が見つかった時点でやめる
+Problem 15 "Longest Collatz sequence" の解法
+http://odz.sakura.ne.jp/projecteuler/index.php?cmd=read&page=Problem%2014
 """
+
+#collatz 列を計算する。
+#すでに計算済みの数字が見つかった時点でやめる
 def get_collatz_sequence(n, collatz_length_stored):
     """
     例えば 13 から開始した Collatz 列
@@ -59,11 +62,17 @@ def store_collatz_length(collatz_sequence, collatz_lengths):
     """
     end_num = collatz_sequence[-1]
     while len(collatz_sequence) > 0:
+        if end_num not in collatz_lengths:
+            sys.stderr.write("There is something wrong in this algorithm. Can't compute collatz lengths.\n")
+            sys.stderr.write("sequence: %s, collatz_lengths: %s\n" %(collatz_sequence, collatz_lengths))
+            sys.exit(1)
+
+        # 全体の長さは「collatz_sequence = [13, 40, 20, 10, 5, 16, 8] の長さ」と「8 から 1 までの長さ (保存済み)」の和
+        # から1を引いたもの (8 を二回数えているので)
         this_collatz_length = len(collatz_sequence) + collatz_lengths[end_num] -1
         start_num = collatz_sequence[0]
         #print start_num, collatz_sequence
-        # すでに Collatz 列に現れ済みの場合
-        if start_num in collatz_lengths:
+        if start_num in collatz_lengths: # すでに Collatz 列に現れ済みの場合
             # これが最後の要素のはず
             if collatz_lengths[start_num] != this_collatz_length:
                 sys.stderr.write("There is something wrong in this algorithm.\n")
