@@ -72,16 +72,18 @@ def store_collatz_length(collatz_sequence, collatz_lengths):
         this_collatz_length = len(collatz_sequence) + collatz_lengths[end_num] -1
         start_num = collatz_sequence[0]
         #print start_num, collatz_sequence
-        if start_num in collatz_lengths: # すでに Collatz 列に現れ済みの場合
+        if start_num not in collatz_lengths:
+            collatz_lengths[start_num] = this_collatz_length
+        else:
+            # すでに計算済みなので、不整合が無いかだけチェックする
             # これが最後の要素のはず
             if collatz_lengths[start_num] != this_collatz_length:
                 sys.stderr.write("There is something wrong in this algorithm.\n")
                 sys.stderr.write("sequence: %s, lengths: %s, this length (unmatched): %s\n" %(collatz_sequence, collatz_lengths, this_collatz_length))
                 sys.exit(1)
-            collatz_sequence.pop(0)
-        else:
-            collatz_lengths[start_num] = this_collatz_length
-            collatz_sequence.pop(0)
+
+        collatz_sequence.pop(0)
+
     return collatz_lengths
 
 def main():
