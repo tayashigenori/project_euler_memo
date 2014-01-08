@@ -19,12 +19,11 @@ def count_lattice_paths(n = 2, m = 2):
     ]
     を返す
     """
-    lattice = []
-    lattice = initialize_lattice(n, m, lattice)
+    lattice = initialize_lattice(n, m)
     lattice = increment_lattice(n, m, lattice)
     return lattice[n][m]
 
-def initialize_lattice(n, m, lattice):
+def initialize_lattice(n, m):
     """
     2*3 の場合、
     lattice = [
@@ -35,6 +34,7 @@ def initialize_lattice(n, m, lattice):
     を返す
     """
     # 0行目を 1 で初期化
+    lattice = []
     zeroth_row = [1,] * (m+1) # [1,1,...]
     lattice.append( zeroth_row )
     # 各行の0列目を 1 で初期化
@@ -54,7 +54,6 @@ def increment_lattice(n, m, lattice):
                 sys.stderr.write("Out of index: n:%d, m:%d\n" %(n,m))
                 sys.exit(1)
     return lattice
-            
 
 def main():
     test = count_lattice_paths(2,2)
@@ -63,7 +62,7 @@ def main():
         sys.exit(1)
 
     answer = count_lattice_paths(20,20)
-    sys.stdout.write(answer)
+    sys.stdout.write("%s\n" %answer)
 
 if __name__ == '__main__':
     main()
