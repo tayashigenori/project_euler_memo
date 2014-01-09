@@ -4,34 +4,34 @@
 import sys
 
 """
-Problem 15 "Longest Collatz sequence" ¤Î²òË¡
+Problem 15 "Longest Collatz sequence" ã®è§£æ³•
 http://odz.sakura.ne.jp/projecteuler/index.php?cmd=read&page=Problem%2014
 """
 
-#collatz Îó¤ò·×»»¤¹¤ë¡£
-#¤¹¤Ç¤Ë·×»»ºÑ¤ß¤Î¿ô»ú¤¬¸«¤Ä¤«¤Ã¤¿»şÅÀ¤Ç¤ä¤á¤ë
+#collatz åˆ—ã‚’è¨ˆç®—ã™ã‚‹ã€‚
+#ã™ã§ã«è¨ˆç®—æ¸ˆã¿ã®æ•°å­—ãŒè¦‹ã¤ã‹ã£ãŸæ™‚ç‚¹ã§ã‚„ã‚ã‚‹
 def get_collatz_sequence(n, collatz_length_stored):
     """
-    Îã¤¨¤Ğ 13 ¤«¤é³«»Ï¤·¤¿ Collatz Îó
+    ä¾‹ãˆã° 13 ã‹ã‚‰é–‹å§‹ã—ãŸ Collatz åˆ—
     collatz_sequence = [13, 40, 20, 10, 5, 16, 8, 4, 2, 1]
-    ¤òÊÖ¤¹¡£
+    ã‚’è¿”ã™ã€‚
 
-    ¤â¤· 8 ¤«¤é³«»Ï¤¹¤ë Collatz Îó¤¬¤¹¤Ç¤Ë·×»»ºÑ¤ß¤Ê¤é¡¢
+    ã‚‚ã— 8 ã‹ã‚‰é–‹å§‹ã™ã‚‹ Collatz åˆ—ãŒã™ã§ã«è¨ˆç®—æ¸ˆã¿ãªã‚‰ã€
     collatz_sequence = [13, 40, 20, 10, 5, 16, 8,]
-    ¤Ş¤Ç¤À¤±·×»»¤·¤Æ¤³¤ì¤òÊÖ¤¹¡£
+    ã¾ã§ã ã‘è¨ˆç®—ã—ã¦ã“ã‚Œã‚’è¿”ã™ã€‚
     """
     collatz_sequence = [n,]
     while True:
         # check end
         if n == 1:
-            break # ´°Î»
+            break # å®Œäº†
 
         # check already stored
         if n in collatz_length_stored:
-            break # ºÇ¸å¤¬1¤Ç½ª¤ï¤Ã¤Æ¤¤¤Ê¤¤¥ê¥¹¥È¤òÊÖ¤¹
+            break # æœ€å¾ŒãŒ1ã§çµ‚ã‚ã£ã¦ã„ãªã„ãƒªã‚¹ãƒˆã‚’è¿”ã™
 
         n = get_next_collatz(n)
-        # ËöÈø¤ËÍ×ÁÇ¤òÄÉ²Ã
+        # æœ«å°¾ã«è¦ç´ ã‚’è¿½åŠ 
         collatz_sequence.append(n)
         #print collatz_sequence
     return collatz_sequence
@@ -43,22 +43,22 @@ def get_next_collatz(i):
 
 def store_collatz_length(collatz_sequence, collatz_lengths):
     """
-    Îã: 13 ¤«¤é³«»Ï¤·¤¿ Collatz Îó
+    ä¾‹: 13 ã‹ã‚‰é–‹å§‹ã—ãŸ Collatz åˆ—
     collatz_sequence = [13, 40, 20, 10, 5, 16, 8, 4, 2, 1]
-    ¤È¤¤¤¦¥ê¥¹¥È¤ò¼õ¤±¼è¤ê¡¢
+    ã¨ã„ã†ãƒªã‚¹ãƒˆã‚’å—ã‘å–ã‚Šã€
     collatz_length = {
-        13: 10, # [13, 40, 20, 10, 5, 16, 8, 4, 2, 1] ¤ÎÄ¹¤µ
-        40: 9,  #     [40, 20, 10, 5, 16, 8, 4, 2, 1] ¤ÎÄ¹¤µ
-        20: 8,  #         [20, 10, 5, 16, 8, 4, 2, 1] ¤ÎÄ¹¤µ
-        10: 7,  #             [10, 5, 16, 8, 4, 2, 1] ¤ÎÄ¹¤µ
-         5: 6,  #                 [5, 16, 8, 4, 2, 1] ¤ÎÄ¹¤µ
-        16: 5,  #                    [16, 8, 4, 2, 1] ¤ÎÄ¹¤µ
-         8: 4,  #                        [8, 4, 2, 1] ¤ÎÄ¹¤µ
-         4: 3,  #                           [4, 2, 1] ¤ÎÄ¹¤µ
-         2: 2,  #                              [2, 1] ¤ÎÄ¹¤µ
-         1: 1,  #                                 [1] ¤ÎÄ¹¤µ
+        13: 10, # [13, 40, 20, 10, 5, 16, 8, 4, 2, 1] ã®é•·ã•
+        40: 9,  #     [40, 20, 10, 5, 16, 8, 4, 2, 1] ã®é•·ã•
+        20: 8,  #         [20, 10, 5, 16, 8, 4, 2, 1] ã®é•·ã•
+        10: 7,  #             [10, 5, 16, 8, 4, 2, 1] ã®é•·ã•
+         5: 6,  #                 [5, 16, 8, 4, 2, 1] ã®é•·ã•
+        16: 5,  #                    [16, 8, 4, 2, 1] ã®é•·ã•
+         8: 4,  #                        [8, 4, 2, 1] ã®é•·ã•
+         4: 3,  #                           [4, 2, 1] ã®é•·ã•
+         2: 2,  #                              [2, 1] ã®é•·ã•
+         1: 1,  #                                 [1] ã®é•·ã•
     }
-    ¤È¤¤¤¦¼­½ñ¤òÊÖ¤¹¡£
+    ã¨ã„ã†è¾æ›¸ã‚’è¿”ã™ã€‚
     """
     end_num = collatz_sequence[-1]
     while len(collatz_sequence) > 0:
@@ -67,16 +67,16 @@ def store_collatz_length(collatz_sequence, collatz_lengths):
             sys.stderr.write("sequence: %s, collatz_lengths: %s\n" %(collatz_sequence, collatz_lengths))
             sys.exit(1)
 
-        # Á´ÂÎ¤ÎÄ¹¤µ¤Ï¡Öcollatz_sequence = [13, 40, 20, 10, 5, 16, 8] ¤ÎÄ¹¤µ¡×¤È¡Ö8 ¤«¤é 1 ¤Ş¤Ç¤ÎÄ¹¤µ (ÊİÂ¸ºÑ¤ß)¡×¤ÎÏÂ
-        # ¤«¤é1¤ò°ú¤¤¤¿¤â¤Î (8 ¤òÆó²ó¿ô¤¨¤Æ¤¤¤ë¤Î¤Ç)
+        # å…¨ä½“ã®é•·ã•ã¯ã€Œcollatz_sequence = [13, 40, 20, 10, 5, 16, 8] ã®é•·ã•ã€ã¨ã€Œ8 ã‹ã‚‰ 1 ã¾ã§ã®é•·ã• (ä¿å­˜æ¸ˆã¿)ã€ã®å’Œ
+        # ã‹ã‚‰1ã‚’å¼•ã„ãŸã‚‚ã® (8 ã‚’äºŒå›æ•°ãˆã¦ã„ã‚‹ã®ã§)
         this_collatz_length = len(collatz_sequence) + collatz_lengths[end_num] -1
         start_num = collatz_sequence[0]
         #print start_num, collatz_sequence
         if start_num not in collatz_lengths:
             collatz_lengths[start_num] = this_collatz_length
         else:
-            # ¤¹¤Ç¤Ë·×»»ºÑ¤ß¤Ê¤Î¤Ç¡¢ÉÔÀ°¹ç¤¬Ìµ¤¤¤«¤À¤±¥Á¥§¥Ã¥¯¤¹¤ë
-            # ¤³¤ì¤¬ºÇ¸å¤ÎÍ×ÁÇ¤Î¤Ï¤º
+            # ã™ã§ã«è¨ˆç®—æ¸ˆã¿ãªã®ã§ã€ä¸æ•´åˆãŒç„¡ã„ã‹ã ã‘ãƒã‚§ãƒƒã‚¯ã™ã‚‹
+            # ã“ã‚ŒãŒæœ€å¾Œã®è¦ç´ ã®ã¯ãš
             if collatz_lengths[start_num] != this_collatz_length:
                 sys.stderr.write("There is something wrong in this algorithm.\n")
                 sys.stderr.write("sequence: %s, lengths: %s, this length (unmatched): %s\n" %(collatz_sequence, collatz_lengths, this_collatz_length))
