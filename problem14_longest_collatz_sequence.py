@@ -4,7 +4,7 @@
 import sys
 
 """
-Problem 15 "Longest Collatz sequence" の解法
+Problem 14 "Longest Collatz sequence" の解法
 http://odz.sakura.ne.jp/projecteuler/index.php?cmd=read&page=Problem%2014
 """
 
