@@ -50,28 +50,45 @@ http://odz.sakura.ne.jp/projecteuler/index.php?cmd=read&page=Problem%2024
 import sys
 import math
 
-def perm(target = 999999, keta_suu = 10):
+def get_ith_perm_by_orders(available_chars, orders):
+    """
+    0,1,2 の順列の場合、available_chars = [0,1,2]
+    
+    (1) orders = [0,0,0] であれば、
+    * 1桁目：available_char [0,1,2] のうち、0番目の文字 (0)
+    * 2桁目：available_char [1,2] のうち、0番目の文字 (1)
+    * 3桁面：available_char [2] のうち、0番目の文字 (2)
+    で "012" を返す
+
+    (2) orders = [0,1,0] であれば、
+    * 1桁目：available_char [0,1,2] のうち、0番目の文字 (0)
+    * 2桁目：available_char [1,2] のうち、1番目の文字 (2)
+    * 3桁面：available_char [1] のうち、0番目の文字 (1)
+    で "021" を返す
+    """
     answer = ""
-    tmp_answers = {} # 商をメモしておくリスト
+    for order in orders:
+        # 0~9 のうち、order 番目に小さいものがこの桁の数字
+        c = available_chars.pop(order) # 一回使ったものはもう使えない
+        answer += c
+    return answer
+
+def get_ith_perm(i = 999999, keta_suu = 10):
+    tmp_answers = [] # 商をメモしておくリスト
 
     for keta in range(1, keta_suu + 1):# 上から keta (= 1 ~ 10) 桁目について
         fact = math.factorial(keta_suu - keta)
 
-        quot = target / fact
-        rem = target % fact
-        tmp_answers[keta] = quot # 商をメモ
-        target = rem
+        quot = i / fact
+        rem = i % fact
+        tmp_answers.append(quot) # 商をメモ
+        i = rem
 
-    available_numbers = range(keta_suu)# 0 ~ 9
-    for keta, quot in tmp_answers.items():
-        # 0~9 のうち、quot 番目に小さいものがこの桁の数字
-        digit = available_numbers.pop(quot) # 一回使ったものはもう使えないので pop する
-        answer += str(digit)
-    return answer
+    available_chars = [str(i) for i in range(keta_suu)]# "0" ~ "9"
+    return get_ith_perm_by_orders(available_chars, tmp_answers)
 
 def main():
-    # このアルゴリズムだと小さいものから 0 番目から始まるので、99万9999番目を求める
-    print perm(999999, 10)
+    print get_ith_perm(999999, 10)
 
 if __name__ == '__main__':
     main()
